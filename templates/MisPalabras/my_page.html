@@ -1,0 +1,86 @@
+{% extends 'MisPalabras/schema.html' %}
+{% block body %}
+    <div>
+        {% if request.user.is_authenticated %}
+            <form action="" method="POST">
+            {% csrf_token %}
+                <h3 class="bi-person-fill">{{ request.user.username }}</h3>
+                <button class="bi-trash-fill" type="submit" name="action" value="Delete">Borrar cuenta</button>
+            </form>
+        {% endif %}
+    </div>
+
+
+    <h2>Mi contenido</h2>
+    <hr>
+
+    {% if word_list %}
+        <h4>Mis palabras</h4>
+        {% for word in word_list %}
+            <h6>{{ word.name }}</h6>
+            <small>{{ word.short_def }}...</small>
+            <footer id="obtained"><small><i>Obtenido de <a href="/{{ word.name }}">{{ word.name }}</a></i></small></footer>
+            <br>
+        {% endfor %}
+        <br><br>
+    {% endif %}
+
+    {% if comment_list %}
+        <h4>Mis comentarios</h4>
+        {% for comment in comment_list %}
+            {{ comment.text }}
+            <footer id="obtained"><small><i>Obtenido de <a href="/{{ comment.word.name }}">{{ comment.word.name }}</a></i></small></footer>
+            <br>
+        {% endfor %}
+        <br><br>
+    {% endif %}
+
+    {% if url_list %}
+        <h4>Mis enlaces</h4>
+        {% for url in url_list %}
+            <a href="{{ url.link }}">{{ url.link }}</a>
+            <footer id="obtained"><small><i>Obtenido de <a href="/{{ url.word.name }}">{{ url.word.name }}</a></i></small></footer>
+            <br>
+        {% endfor %}
+        <br><br>
+    {% endif %}
+
+    {% if drae_info_list %}
+        <h4>Mis descripciones del DRAE</h4>
+        {% for drae_info in drae_info_list %}
+            {{ drae_info.description }}
+            <footer id="obtained"><small><i>Obtenido de <a href="/{{ drae_info.word.name }}">{{ drae_info.word.name }}</a></i></small></footer>
+            <br>
+        {% endfor %}
+        <br><br>
+    {% endif %}
+
+
+    {% if flickr_image_list %}
+        <h4>Mis imágenes de Flickr</h4>
+        <div class="row">
+            {% for flickr_image in flickr_image_list %}
+                <div class="col-lg-3 col-sm-4">
+                    <img src="{{ flickr_image.image }}" width="50%">
+                    <footer id="obtained"><small><i>Obtenido de <a href="/{{ flickr_image.word.name }}">{{ flickr_image.word.name }}</a></i></small></footer>
+                </div>
+            {% endfor %}
+        </div>
+        <br><br>
+    {% endif %}
+
+
+
+    {% if meme_list %}
+        <h4>Mis memes</h4>
+        <div class="row">
+            {% for meme in meme_list %}
+                <div class="col-lg-3 col-sm-4">
+                    <img src="{{ meme.image }}" width="50%">
+                    <footer id="obtained"><small><i>Obtenido de <a href="/{{ meme.word.name }}">{{ meme.word.name }}</a></i></small></footer>
+                </div>
+            {% endfor %}
+        </div>
+        <br><br>
+    {% endif %}
+{% endblock %}

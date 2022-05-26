@@ -1,0 +1,58 @@
+{% extends 'MisPalabras/schema.html' %}
+{% load static %}
+
+{% block body %}
+    <div id="help">
+        <h3>MisPalabras es una web donde puedes buscar palabras y realizar
+            diferentes aportaciones sobre ellas. ¿Cómo debes hacerlo?</h3>
+        <br>
+        <h5>Primeros pasos <span class="bi-check-circle"></span></h5>
+        <p>Para empezar, debes iniciar sesión o registrarte si aún no lo
+        has hecho para realizar cambios. Si aún no has iniciado sesión,
+        puedes consultar las palabras almacenadas, así como las diferentes
+        aportaciones realizadas por usuarios.</p>
+        <br>
+        <h5>¿Cómo buscar una palabra? <span class="bi-search"></span></h5>
+        <p>El proceso es muy sencillo: Simplemente, busca la palabra que quieras
+        a través del formulario situado en el panel de la derecha y
+        guarda la palabra si lo deseas.</p>
+        <br>
+        <h5>¿Cómo realizar aportaciones? <span class="bi-pen"></span></h5>
+        <p>En la página de la palabra que quieras, puedes publicar comentarios o
+        enlaces; así como memes (con tres imágenes a elegir), imágenes de Flickr
+        o descripciones del DRAE (una única descripción para cada palabra).</p>
+        <br>
+        <h5>Ver mis palabras y aportaciones <span class="bi-person-circle"></span></h5>
+        <p>Una vez iniciada sesión, podrás observar en el menú superior un acceso a
+        tus contenidos (Mi página). En él podrás ver, separado en secciones, tus
+        palabras guardadas y todas tus aportaciones.</p>
+        <br>
+        <h5>Formatos <span class="bi-files"></span></h5>
+        <p>Puedes obtener la información referente al contenido de la página principal
+        como un documento en formato XML o JSON, simplemente pulsando sobre una de
+        las dos opciones del menú superior.</p>
+        <br>
+        <h5>Fuentes de información automática <span class="bi-globe"></span></h5>
+        <p><a href="https://es.wikipedia.org">https://es.wikipedia.org</a></p>
+        <p><a href="https://dle.rae.es">https://dle.rae.es</a></p>
+        <p><a href="https://www.flickr.com">https://www.flickr.com</a></p>
+        <p><a href="http://apimeme.com">http://apimeme.com</a></p>
+        <br><br><br>
+        <div id="author">
+            <div class="row">
+                <div class="col-6">
+                    <img src="{% static 'MisPalabras/etsit-footer-logo.png' %}">
+                </div>
+
+                <div class="col-6">
+                    <br><br>
+                    <footer><small>Adrián Murillo Morán</small></footer>
+                    <footer><small>Estudiante en Ingeniería en sistemas de telecomunicación</small></footer>
+                </div>
+            </div>
+            <footer><small>Esta página web se ha desarrollado utilizando Python 3.9
+                a través del framework Django (versión 4.0.3)</small></footer>
+        </div>
+
+    </div>
+{% endblock %}

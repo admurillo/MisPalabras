@@ -1,0 +1,136 @@
+header {
+	background:url("Cabecera-Libros-Blog-2.jpg");
+	background-size: cover;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+#menu a {
+    text-decoration: none;
+}
+
+#wordlist {
+    text-align: justify;
+}
+
+#wordlist h1 a {
+    text-decoration: none;
+}
+
+#wordlist img {
+    width: 100%;
+    height: auto;
+}
+
+#login {
+    background-color: cyan;
+}
+
+#title {
+    text-align: center;
+    font-size: xxx-large;
+}
+
+#title .white {
+    color: black;
+    background-color: lightblue;
+    border-radius: 10px;
+}
+
+#menu {
+    background-color: lightblue;
+}
+
+#searchbar {
+    background-color: lightgreen;
+}
+
+#searchbar p a {
+    text-decoration: none;
+}
+
+button {
+    background-color: lightblue;
+    border-color: lightblue;
+    color: black;
+    text-align: center;
+}
+
+button:hover {
+    background-color: white;
+    border-color: blue;
+    color: black;
+}
+
+.bi-search,
+.bi-star-fill,
+.bi-arrow-90deg-left,
+.send,
+.bi-box-arrow-in-right,
+.bi-box-arrow-in-down-right,
+.bi-box-arrow-left,
+.autoinfo,
+.bi-trash-fill,
+.bi-bookmark-check,
+.bi-bookmark-x {
+    border-radius: 10px;
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+#votes {
+    text-align: center;
+}
+
+.navbar-nav-scroll {
+    text-align: justify;
+}
+
+.navbar-nav-scroll h1 {
+    text-align: center;
+}
+
+.navbar-nav-scroll #img_wiki {
+    float: right;
+}
+
+.navbar-nav-scroll #flickr {
+    width: 50%;
+    height: auto;
+}
+
+#img_url {
+    width: 100%;
+    height: auto;
+}
+
+#date {
+    text-align: right;
+}
+
+footer {
+    text-align: center;
+}
+
+#obtained {
+    text-align: left;
+}
+
+#help {
+    text-align: justify;
+}
+
+#author footer {
+    text-align: right;
+}
+
+#author img {
+    width: 100%;
+    height: auto;
+}

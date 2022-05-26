@@ -1,0 +1,54 @@
+{% extends 'MisPalabras/schema.html' %}
+{% block body %}
+    <div id="wordlist" class="container-fluid">
+        {% if word_list %}
+            {% for word in word_list %}
+                <h1><a href="/{{ word.name }}">{{ word.name }}</a></h1>
+                {% if word.image %}
+                <div class="row">
+                    <div class="col-lg-10 col-sm-9">
+                        <small>{{ word.short_def }}...</small>
+                    </div>
+
+                    <div class="col-lg-2 col-sm-3">
+                        <img src="{{ word.image }}">
+                    </div>
+                </div>
+                {% else %}
+                    <div>
+                        <small>{{ word.short_def }}...</small>
+                    </div>
+                {% endif %}
+                <footer><small><i>Palabra "{{ word.name }}" almacenada por {{ word.user.username }}</i></small></footer>
+            {% endfor %}
+
+            {% if word_list.has_next or word_list.has_previous %}
+                <ul class="pagination justify-content-center">
+                    {% if word_list.has_previous %}
+                        <li>
+                            <a href="?page={{ word_list.previous_page_number }}" class="page-link">
+                                <i class="bi-arrow-left-circle"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for page in word_list.paginator.page_range %}
+                        <li class="{% if word_list.number == page %}active{% endif %}">
+                            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                        </li>
+                    {% endfor %}
+
+                    {% if word_list.has_next %}
+                        <li>
+                            <a href="?page={{ word_list.next_page_number }}" class="page-link">
+                                <i class="bi-arrow-right-circle"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        {% else %}
+            <h3>Aún no hay palabras almacenadas</h3>
+        {% endif %}
+    </div>
+{% endblock %}

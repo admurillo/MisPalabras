@@ -1,0 +1,175 @@
+{% extends 'MisPalabras/schema.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container-fluid">
+        {% if word %}
+            <h1>{{ word.name }}</h1>
+            <div class="navbar-nav-scroll">
+                <img id="img_wiki" src="{{ word.image }}">
+                <p>{{ word.definition }}</p>
+            </div>
+            <p id="votes">Número de votos: {{ word.votes }}</p>
+            {% if request.user.is_authenticated %}
+                {% if vote_word %}
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <span id="votes">Ya has votado esta palabra</span>
+                        <button class="bi-arrow-90deg-left" type="submit" name="action" value="DeleteVote"></button>
+                    </form>
+                {% else %}
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <button class="bi-star-fill" type="submit" name="action" value="VoteWord"></button>
+                    </form>
+                {% endif %}
+            {% endif %}
+            <br>
+            <footer><small><i>Palabra "{{ word.name }}" almacenada por {{ word.user.username }} ({{ word.date }})</i></small></footer>
+            <br>
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-6 col-sm-12">
+                        {% if word.draeinfo %}
+                            <p>{{ word.draeinfo.description }}</p>
+                            <footer><small><i>Descripción obtenida de
+                                <a href="https://dle.rae.es/{{ word.name }}">DRAE
+                                </a> por {{ word.draeinfo.user.username }} ({{ word.draeinfo.date }})</i></small></footer>
+                        {% else %}
+                            {% if request.user.is_authenticated %}
+                                <form action="" method="POST">
+                                    {% csrf_token %}
+                                    <button class="autoinfo" type="submit" name="action" value="DRAEInfo"><img src="{% static 'MisPalabras/rae-logo-.png' %}" height="60" width="100"></button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        {% if request.user.is_authenticated %}
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <button class="autoinfo" type="submit" name="action" value="FlickrImage"><img src="{% static 'MisPalabras/Flickr-Logo.png' %}" height="60" width="100"></button>
+                            </form>
+                        {% endif %}
+                    </div>
+
+                    <div class="navbar-nav-scroll">
+                        <div class="row">
+                            <h3>Imágenes de Flickr:</h3>
+                            {% for flickr_image in word.flickrimage_set.all %}
+                                <div class="col-lg-3 col-sm-4">
+                                    <p><b>{{ flickr_image.user.username }}</b></p>
+                                    <img id="flickr" src="{{ flickr_image.image }}" width="50%">
+                                    <p><small><i>{{ flickr_image.date }}</i></small></p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% if request.user.is_authenticated %}
+                        <div class="col-lg-5 col-sm-12">
+                            <h5>Añade un comentario:</h5>
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                {{ comment_form }}
+                                <button class="send" type="submit" name="action" value="SendComment">Enviar</button>
+                            </form>
+                        </div>
+
+                        <div class="col-lg-4 col-sm-12">
+                            <h5>Añade un enlace:</h5>
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                {{ url_form }}
+                                <button class="send" type="submit" name="action" value="SendUrl">Enviar</button>
+                            </form>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-12">
+                            <h5>Añade un meme <img src="{% static 'MisPalabras/apimeme.png' %}" width="10%"></h5>
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                {{ meme_form }}
+                                <button class="send" type="submit" name="action" value="SendMeme">Enviar</button>
+                            </form>
+
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-5 col-sm-12">
+                        <h3>Comentarios:</h3>
+                        <div class="navbar-nav-scroll">
+                            {% for comment in word.comment_set.all %}
+                                <b>{{ comment.user.username }}</b>
+                                <p>{{ comment.text }}</p>
+                                <div id="date">
+                                    <small><i>{{ comment.date }}</i></small>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-6">
+                        <h3>Enlaces:</h3>
+                        <div class="navbar-nav-scroll">
+                            {% for url in word.url_set.all %}
+                                <b>{{ url.user.username }}</b>
+                                {% if url.image %}
+                                    <div class="cat">
+                                        <img id="img_url" src="{{ url.image }}">
+                                    </div>
+                                {% endif %}
+                                {% if url.description %}
+                                    <p>{{ url.description }}</p>
+                                {% endif %}
+                                <p><a href="{{ url.link }}">{{ url.link }}</a></p>
+                                <div id="date">
+                                    <small><i>{{ url.date }}</i></small>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <h3>Memes:</h3>
+                        <div class="navbar-nav-scroll">
+                            {% for meme in word.apimeme_set.all %}
+                                <b>{{ meme.user.username }}</b>
+                                <img src="{{ meme.image }}" width="100%">
+                                <div id="date">
+                                    <small><i>{{ meme.date }}</i></small>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        {% else %}
+            <div class="row">
+
+                <div class="navbar-nav-scroll">
+                    <h1>{{ name }}</h1>
+                    <img id="img_wiki" src="{{ image }}">
+                    <p>{{ definition }}</p>
+                </div>
+
+                <form action="" method="POST">
+                    <br>
+                    {% csrf_token %}
+                    <button class="bi-bookmark-check" type="submit" name="action" value="Save"> Guardar</button>
+                    <button class="bi-bookmark-x" type="submit" name="action" value="Delete"> No guardar</button>
+                </form>
+
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
